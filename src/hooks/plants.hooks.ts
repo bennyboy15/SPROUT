@@ -8,3 +8,10 @@ export function usePlants() {
         queryFn: () => api.get<Plants[]>("/plants").then((r) => r.data),
     });
 }
+
+export function usePlant(plantId: number) {
+    return useQuery({
+        queryKey: ["plants", plantId],
+        queryFn: () => api.get<Plants>(`/plants/${plantId}`).then((r) => r.data),
+    });
+}

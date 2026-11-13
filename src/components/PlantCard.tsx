@@ -1,4 +1,5 @@
 import { usePlantLatestReading } from "@/hooks/readings.hooks";
+import { usePlantPrefs } from "@/lib/plantPrefs";
 import { MOOD_STYLES, happinessOf, kindOf, moodOf } from "@/lib/plants";
 import { cn } from "cn";
 import { Droplet, Heart } from "lucide-react";
@@ -26,6 +27,7 @@ const trackClasses = cn(
 function PlantCard({ plantId, title, species, idealMin, idealMax }: Props) {
     const navigate = useNavigate();
     const { data: latestReading } = usePlantLatestReading(plantId);
+    const [prefs] = usePlantPrefs(plantId);
 
     const moisture = latestReading?.moisture;
     const mood = moodOf(idealMin, idealMax, moisture);
@@ -35,13 +37,13 @@ function PlantCard({ plantId, title, species, idealMin, idealMax }: Props) {
     return (
         <Card className="flex-row items-center gap-3.5 rounded-3xl p-3 pr-3.5 text-left" onClick={() => navigate(`/plants/${plantId}`)}>
             <div className={cn("flex size-19 shrink-0 items-center justify-center rounded-2xl", style.tint)}>
-                <PlantCharacter kind={kindOf(species, plantId)} mood={mood} size={70} />
+                <PlantCharacter kind={prefs.kind ?? kindOf(species, plantId)} mood={mood} size={70} />
             </div>
 
             <div className="flex min-w-0 flex-1 flex-col gap-2">
                 <div className="flex items-start justify-between gap-2">
                     <div className="flex min-w-0 flex-col">
-                        <h3 className="text-lg font-semibold text-foreground">{title}</h3>
+                        <h3 className="text-lg font-semibold text-foreground">{prefs.name?.trim() || title}</h3>
                         {species && <span className="truncate text-sm text-muted-foreground">{species}</span>}
                     </div>
                     <span className={cn("inline-flex h-6 shrink-0 items-center rounded-full px-2.5 text-xs font-semibold", style.chip)}>{style.label}</span>
