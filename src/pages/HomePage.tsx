@@ -1,9 +1,9 @@
+import Header from "@/components/Header";
 import PlantCard from "@/components/PlantCard";
-import { Button } from "@/components/ui/button";
 import { usePlants } from "@/hooks/plants.hooks";
 import { MOOD_STYLES, happinessOf, moodOf, type Mood } from "@/lib/plants";
 import { cn } from "cn";
-import { Clock, Droplet, Plus, Sprout } from "lucide-react";
+import { Droplet } from "lucide-react";
 
 function HomePage() {
     const { data: plants = [], isLoading: plantsLoading, isError: plantsError } = usePlants();
@@ -18,6 +18,7 @@ function HomePage() {
         acc[m] = (acc[m] ?? 0) + 1;
         return acc;
     }, {});
+
     const breakdown = (["happy", "ok", "thirsty", "soggy"] as const)
         .filter((m) => counts[m])
         .map((m) => `${counts[m]} ${MOOD_STYLES[m].label.toLowerCase()}`)
@@ -31,23 +32,7 @@ function HomePage() {
 
     return (
         <div className="mx-auto flex w-full max-w-2xl flex-col gap-5 px-5 pt-5 pb-8 text-left">
-            <header className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                    <Sprout className="size-6.5 text-primary" aria-hidden="true" />
-                    <span className="text-xl font-semibold text-foreground">Sprout</span>
-                </div>
-                <Button size="icon-lg" className="size-11 rounded-full" aria-label="Add a plant">
-                    <Plus className="size-5" />
-                </Button>
-            </header>
-
-            <div className="flex flex-col gap-1.5">
-                <h1 className="m-0 text-4xl leading-tight font-semibold tracking-normal text-foreground">My plants</h1>
-                <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                    <Clock className="size-4" aria-hidden="true" />
-                    Updates every 5 min
-                </p>
-            </div>
+            <Header />
 
             {plantsLoading && <p className="text-muted-foreground">Loading...</p>}
             {plantsError && <p className="text-destructive">Error loading plants...</p>}
@@ -88,7 +73,7 @@ function HomePage() {
 
                     <div className="flex flex-col gap-3">
                         {sorted.map((p) => (
-                            <PlantCard key={p.id} title={p.name} species={p.species} idealMin={p.idealMin} idealMax={p.idealMax} moisture={p.moisture} />
+                            <PlantCard key={p.id} plantId={p.id} title={p.name} species={p.species} idealMin={p.idealMin} idealMax={p.idealMax} />
                         ))}
                     </div>
                 </>

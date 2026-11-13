@@ -1,15 +1,17 @@
+import { usePlantLatestReading } from "@/hooks/readings.hooks";
 import { MOOD_STYLES, happinessOf, moodOf } from "@/lib/plants";
 import { cn } from "cn";
 import { Droplet, Heart, Sprout } from "lucide-react";
+import { useNavigate } from "react-router";
 import { Card } from "./ui/card";
 import { Progress, ProgressValue } from "./ui/progress";
 
 interface Props {
+    plantId: number;
     title: string;
     species?: string;
     idealMin: number;
     idealMax: number;
-    moisture?: number;
 }
 
 // Track shows the happy zone as a tinted band behind the fill.
@@ -20,13 +22,17 @@ const trackClasses = cn(
     "[&_[data-slot=progress-track]]:bg-[linear-gradient(to_right,var(--muted)_40%,color-mix(in_oklch,var(--primary)_20%,var(--muted))_40%_70%,var(--muted)_70%)]",
 );
 
-function PlantCard({ title, species, idealMin, idealMax, moisture }: Props) {
+function PlantCard({ plantId, title, species, idealMin, idealMax }: Props) {
+    const navigate = useNavigate();
+    const { data: latestReading } = usePlantLatestReading(plantId);
+
+    const moisture = latestReading?.moisture;
     const mood = moodOf(idealMin, idealMax, moisture);
     const style = MOOD_STYLES[mood];
     const happiness = happinessOf(moisture);
 
     return (
-        <Card className="flex-row items-center gap-3.5 rounded-3xl p-3 pr-3.5 text-left">
+        <Card className="flex-row items-center gap-3.5 rounded-3xl p-3 pr-3.5 text-left" onClick={() => navigate(`/plants/${plantId}`)}>
             <div className={cn("flex size-19 shrink-0 items-center justify-center rounded-2xl", style.tint)}>
                 <Sprout className="size-10 text-primary" aria-hidden="true" />
             </div>

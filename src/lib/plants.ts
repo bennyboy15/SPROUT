@@ -2,9 +2,8 @@ export type Mood = "happy" | "ok" | "thirsty" | "soggy" | "unknown";
 
 export function moodOf(idealMin: number, idealMax: number, moisture?: number): Mood {
     if (moisture == null) return "unknown";
-    if (moisture < 25) return "thirsty";
-    if (moisture < idealMin) return "ok";
-    if (moisture <= idealMax) return "happy";
+    if (moisture < idealMin) return "thirsty";
+    if (moisture >= idealMin && moisture <= idealMax) return "happy";
     return "soggy";
 }
 
