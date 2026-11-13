@@ -8,7 +8,7 @@
 :root {
     --text: #6b6375;
     --text-h: #08060d;
-    --bg: #fff;
+    --bg: #f5f3ec;
     --border: oklch(0.923 0.003 48.717);
     --code-bg: #f4f3ec;
     --accent: oklch(0.97 0.001 106.424);
@@ -35,7 +35,9 @@
         font-size: 16px;
     }
 
-    --background: oklch(1 0 0);
+    --background: #f5f3ec;
+
+    --water: #2463c7;
 
     --foreground: oklch(0.147 0.004 49.25);
 
@@ -190,6 +192,7 @@
     --color-secondary: var(--secondary);
     --color-primary-foreground: var(--primary-foreground);
     --color-primary: var(--primary);
+    --color-water: var(--water);
     --color-popover-foreground: var(--popover-foreground);
     --color-popover: var(--popover);
     --color-card-foreground: var(--card-foreground);

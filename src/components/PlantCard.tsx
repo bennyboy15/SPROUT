@@ -18,7 +18,7 @@ interface Props {
 // Track shows the happy zone as a tinted band behind the fill.
 const trackClasses = cn(
     "flex-nowrap items-center gap-2",
-    "[&_[data-slot=progress-track]]:order-first [&_[data-slot=progress-track]]:h-2",
+    "[&_[data-slot=progress-track]]:order-first [&_[data-slot=progress-track]]:h-2 [&_[data-slot=progress-indicator]]:bg-water",
     // Literal 40%/70% (HAPPY_ZONE) so Tailwind can detect the class.
     "[&_[data-slot=progress-track]]:bg-[linear-gradient(to_right,var(--muted)_40%,color-mix(in_oklch,var(--primary)_20%,var(--muted))_40%_70%,var(--muted)_70%)]",
 );
@@ -48,7 +48,7 @@ function PlantCard({ plantId, title, species, idealMin, idealMax }: Props) {
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <Droplet className="size-4 shrink-0 text-primary" aria-hidden="true" />
+                    <Droplet className="size-4 shrink-0 text-water" aria-hidden="true" />
                     <Progress value={moisture ?? null} aria-label="Soil moisture" className={cn("flex-1", trackClasses)}>
                         <ProgressValue className="w-9 text-right text-sm font-semibold text-foreground">
                             {(formatted) => (moisture == null ? "—" : formatted)}
