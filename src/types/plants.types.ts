@@ -4,7 +4,6 @@ export type Plants = {
     idealMin: number;
     idealMax: number;
     species?: string;
-    moisture?: number;
 };
 
 export type UpdatePlant = Partial<Omit<Plants, "id">>;
