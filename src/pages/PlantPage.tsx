@@ -1,5 +1,14 @@
+import { usePlantLatestReading } from "@/hooks/readings.hooks";
+
 function PlantPage() {
-    return <div>PlantPage</div>;
+    const { data: latestReading } = usePlantLatestReading(1);
+
+    return (
+        <>
+            <div>PlantPage</div>
+            <p>{latestReading?.moisture}</p>
+        </>
+    );
 }
 
 export default PlantPage;

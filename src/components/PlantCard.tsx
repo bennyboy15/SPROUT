@@ -1,8 +1,9 @@
 import { usePlantLatestReading } from "@/hooks/readings.hooks";
-import { MOOD_STYLES, happinessOf, moodOf } from "@/lib/plants";
+import { MOOD_STYLES, happinessOf, kindOf, moodOf } from "@/lib/plants";
 import { cn } from "cn";
-import { Droplet, Heart, Sprout } from "lucide-react";
+import { Droplet, Heart } from "lucide-react";
 import { useNavigate } from "react-router";
+import PlantCharacter from "./PlantCharacter";
 import { Card } from "./ui/card";
 import { Progress, ProgressValue } from "./ui/progress";
 
@@ -34,7 +35,7 @@ function PlantCard({ plantId, title, species, idealMin, idealMax }: Props) {
     return (
         <Card className="flex-row items-center gap-3.5 rounded-3xl p-3 pr-3.5 text-left" onClick={() => navigate(`/plants/${plantId}`)}>
             <div className={cn("flex size-19 shrink-0 items-center justify-center rounded-2xl", style.tint)}>
-                <Sprout className="size-10 text-primary" aria-hidden="true" />
+                <PlantCharacter kind={kindOf(species, plantId)} mood={mood} size={70} />
             </div>
 
             <div className="flex min-w-0 flex-1 flex-col gap-2">
