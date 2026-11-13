@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { api } from "../axios";
+import { api } from "../lib/axios";
 import type { Plants } from "../types/plants.types";
 
 export function usePlants() {

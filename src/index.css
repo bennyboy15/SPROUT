@@ -115,6 +115,8 @@
     }
 }
 
+/* Template defaults live in the base layer so Tailwind utilities can override them. */
+@layer base {
 #root {
     width: 1126px;
     max-width: 100%;
@@ -158,6 +160,7 @@ h2 {
 }
 p {
     margin: 0;
+}
 }
 
 code,
