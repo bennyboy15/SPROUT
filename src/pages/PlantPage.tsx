@@ -1,14 +1,15 @@
 import MoistureChart from "@/components/MoistureChart";
 import PlantCharacter from "@/components/PlantCharacter";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { usePlant } from "@/hooks/plants.hooks";
+import { usePlant, useUpdatePlant } from "@/hooks/plants.hooks";
 import { usePlantLatestReading, usePlantReadings } from "@/hooks/readings.hooks";
 import { usePlantPrefs } from "@/lib/plantPrefs";
 import { MOOD_STYLES, PLANT_KINDS, happinessOf, kindOf, moodOf, type Mood } from "@/lib/plants";
 import { RANGES, type RangeKey } from "@/lib/readings";
 import type { Readings } from "@/types/readings.types";
 import { cn } from "cn";
-import { ChevronLeft, Droplet } from "lucide-react";
+import { ChevronLeft, Droplet, Save } from "lucide-react";
 import { useState } from "react";
 import { Link, useParams } from "react-router";
 
@@ -54,6 +55,8 @@ function PlantPage() {
     const { data: readings = [], isLoading: readingsLoading } = usePlantReadings(plantId, WEEK_OF_READINGS);
     const [prefs, setPrefs] = usePlantPrefs(plantId);
     const [range, setRange] = useState<RangeKey>("24h");
+
+    const { mutate: updatePlant } = useUpdatePlant();
 
     if (isLoading) return <p className="p-5 text-muted-foreground">Loading...</p>;
     if (isError) return <p className="p-5 text-destructive">Error loading plant...</p>;
@@ -173,6 +176,9 @@ function PlantPage() {
                         onChange={(e) => setPrefs({ name: e.target.value })}
                         className="h-11.5 rounded-xl border border-input bg-background px-3.5 text-base font-medium text-foreground outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
                     />
+                    <Button onClick={() => updatePlant({ plantId: plant.id, data: { name: prefs.name } })}>
+                        Update Plant <Save />
+                    </Button>
                 </div>
                 <div className="flex flex-col gap-2">
                     <span className="text-[13px] font-semibold text-foreground/80">Character</span>

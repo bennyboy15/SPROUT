@@ -6,3 +6,5 @@ export type Plants = {
     species?: string;
     moisture?: number;
 };
+
+export type UpdatePlant = Partial<Omit<Plants, "id">>;
