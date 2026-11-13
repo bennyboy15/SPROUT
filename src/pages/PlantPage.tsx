@@ -17,7 +17,6 @@ const WEEK_OF_READINGS = 7 * 24 * 12;
 
 const SPEECH: Record<Mood, string> = {
     happy: "Feeling great! My soil is just right.",
-    ok: "Getting a little dry. A drink soon would be lovely.",
     thirsty: "I'm parched! Could I have some water, please?",
     soggy: "My roots are soaking. Let me dry out for a bit.",
     unknown: "Waiting for my first reading…",

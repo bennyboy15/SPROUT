@@ -19,7 +19,7 @@ function HomePage() {
         return acc;
     }, {});
 
-    const breakdown = (["happy", "ok", "thirsty", "soggy"] as const)
+    const breakdown = (["happy", "thirsty", "soggy"] as const)
         .filter((m) => counts[m])
         .map((m) => `${counts[m]} ${MOOD_STYLES[m].label.toLowerCase()}`)
         .join(" · ");
