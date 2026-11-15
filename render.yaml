@@ -10,9 +10,8 @@ services:
         value: "24"
       # VITE_* values are baked into the bundle at build time — redeploy after changing them.
       # sync: false means Render asks for the value when the Blueprint is created.
+      # Public URL of the HONO_MOISTURE API. Its FRONTEND_URL must be this site's URL.
       - key: VITE_API_URL
-        sync: false
-      - key: VITE_API_KEY
         sync: false
     routes:
       # Client-side routing: serve index.html for deep links like /plants/3.

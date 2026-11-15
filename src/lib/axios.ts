@@ -1,8 +1,13 @@
 import axios from "axios";
 
-const apiKey = import.meta.env.VITE_API_KEY;
+export const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
+// Auth is the Better Auth session cookie, so it must be sent cross-origin.
 export const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL ?? "http://localhost:3000",
-    headers: apiKey ? { Authorization: `Bearer ${apiKey}` } : undefined,
+    baseURL: API_URL,
+    withCredentials: true,
 });
+
+export function isUnauthorized(error: unknown) {
+    return axios.isAxiosError(error) && error.response?.status === 401;
+}
