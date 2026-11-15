@@ -1,9 +1,8 @@
-import { useSyncExternalStore, type ReactNode } from "react";
 import { PLANT_KINDS, type Mood, type PlantKind } from "@/lib/plants";
+import { useSyncExternalStore, type ReactNode } from "react";
 
 const MOTION: Record<Mood, { sway: string; dur: string }> = {
     happy: { sway: "-4 50 70;4 50 70;-4 50 70", dur: "3s" },
-    ok: { sway: "-2 50 70;2 50 70;-2 50 70", dur: "4s" },
     thirsty: { sway: "8 50 70;11 50 70;8 50 70", dur: "5s" },
     soggy: { sway: "-1.5 50 70;1.5 50 70;-1.5 50 70", dur: "2.2s" },
     unknown: { sway: "-2 50 70;2 50 70;-2 50 70", dur: "4s" },
@@ -11,7 +10,6 @@ const MOTION: Record<Mood, { sway: string; dur: string }> = {
 
 const MOUTH: Record<Mood, string> = {
     happy: "M45 86.5Q50 92.5 55 86.5",
-    ok: "M46 88.5Q50 90.5 54 88.5",
     thirsty: "M46 91Q50 86.5 54 91",
     soggy: "M44.5 89Q47.25 86.5 50 89Q52.75 91.5 55.5 89",
     unknown: "M46 88.5Q50 90.5 54 88.5",
@@ -19,7 +17,6 @@ const MOUTH: Record<Mood, string> = {
 
 const MOOD_WORDS: Record<Mood, string> = {
     happy: "happy",
-    ok: "slightly dry",
     thirsty: "thirsty",
     soggy: "overwatered",
     unknown: "sleepy",
@@ -58,11 +55,22 @@ function Foliage({ kind }: { kind: PlantKind }) {
         case "monstera":
             return (
                 <>
-                    <path d="M50 70C48 58 41 50 33 44M50 70C52 57 59 48 67 40M50 70C50 56 50 42 50 30" stroke="#2F6B43" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+                    <path
+                        d="M50 70C48 58 41 50 33 44M50 70C52 57 59 48 67 40M50 70C50 56 50 42 50 30"
+                        stroke="#2F6B43"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        fill="none"
+                    />
                     <ellipse cx="31" cy="42" rx="16" ry="11" transform="rotate(-25 31 42)" fill="#3E8E5A" />
                     <ellipse cx="69" cy="38" rx="16" ry="11" transform="rotate(25 69 38)" fill="#3E8E5A" />
                     <ellipse cx="50" cy="27" rx="13" ry="16" fill="#4A9C66" />
-                    <path d="M18 38l7 3M20 47l7-2M82 34l-7 3M80 43l-7-2M39 20l6 4M61 20l-6 4M38 31l6 1M62 31l-6 1" stroke="#F5F3EC" strokeWidth="2" strokeLinecap="round" />
+                    <path
+                        d="M18 38l7 3M20 47l7-2M82 34l-7 3M80 43l-7-2M39 20l6 4M61 20l-6 4M38 31l6 1M62 31l-6 1"
+                        stroke="#F5F3EC"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                    />
                     <path d="M24 44L38 40M76 40L62 36M50 13V40" stroke="#2F6B43" strokeWidth="1" strokeLinecap="round" opacity="0.6" />
                 </>
             );

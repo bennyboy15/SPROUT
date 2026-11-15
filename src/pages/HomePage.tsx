@@ -1,15 +1,21 @@
 import Header from "@/components/Header";
 import PlantCard from "@/components/PlantCard";
 import { usePlants } from "@/hooks/plants.hooks";
+import { latestReadingQuery } from "@/hooks/readings.hooks";
 import { MOOD_STYLES, happinessOf, moodOf, type Mood } from "@/lib/plants";
+import { useQueries } from "@tanstack/react-query";
 import { cn } from "cn";
 import { Droplet } from "lucide-react";
 
 function HomePage() {
     const { data: plants = [], isLoading: plantsLoading, isError: plantsError } = usePlants();
 
+    // Moisture comes from each plant's latest reading (same cache entries the PlantCards use).
+    const latestReadings = useQueries({ queries: plants.map((p) => latestReadingQuery(p.id)) });
+    const withMoisture = plants.map((p, i) => ({ ...p, moisture: latestReadings[i]?.data?.moisture }));
+
     // Least happy first, plants without a reading last.
-    const sorted = [...plants].sort((a, b) => (happinessOf(a.moisture) ?? 101) - (happinessOf(b.moisture) ?? 101));
+    const sorted = [...withMoisture].sort((a, b) => (happinessOf(a.moisture) ?? 101) - (happinessOf(b.moisture) ?? 101));
     const happinessValues = sorted.map((p) => happinessOf(p.moisture)).filter((h): h is number => h != null);
     const avg = happinessValues.length ? Math.round(happinessValues.reduce((s, h) => s + h, 0) / happinessValues.length) : undefined;
 

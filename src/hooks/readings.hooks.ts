@@ -1,12 +1,17 @@
 import { api } from "@/lib/axios";
 import type { Readings } from "@/types/readings.types";
-import { useQuery } from "@tanstack/react-query";
+import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export function usePlantLatestReading(plantId: number) {
-    return useQuery({
+/** Shared so PlantCard and HomePage's useQueries hit the same cache entry. */
+export function latestReadingQuery(plantId: number) {
+    return queryOptions({
         queryKey: ["readings", plantId, "latest"],
         queryFn: () => api.get<Readings>(`/plants/${plantId}/readings/latest`).then((r) => r.data),
     });
+}
+
+export function usePlantLatestReading(plantId: number) {
+    return useQuery(latestReadingQuery(plantId));
 }
 
 /** Readings sorted oldest → newest, whatever order the API returns them in. */
