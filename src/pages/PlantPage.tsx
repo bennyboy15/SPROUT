@@ -73,7 +73,7 @@ function PlantPage() {
 
     const name = prefs.name?.trim() || plant.name;
     const kind = prefs.kind ?? kindOf(plant.species, plant.id);
-    const moisture = latest?.moisture ?? -1;
+    const moisture = latest?.moisture;
     const mood = moodOf(plant.idealMin, plant.idealMax, moisture);
     const style = MOOD_STYLES[mood];
     const happiness = happinessOf(moisture);
